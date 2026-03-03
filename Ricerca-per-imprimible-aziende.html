@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mercato B2B Stampa & Personalizzazione Aziendale — Italia 2024</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fraunces:ital,wght@0,600;0,700;0,900;1,700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F0ECE4;--surface:#FDFAF5;--surface2:#F5F0E7;
+  --ink:#18160F;--ink2:#3E3A30;--ink3:#7A7468;
+  --blue:#1B4F8A;--blue-lt:#DDE8F5;
+  --amber:#C4780A;--amber-lt:#FAF0D5;
+  --rust:#A83520;--rust-lt:#F9E3DC;
+  --teal:#1A6462;--teal-lt:#D6ECEA;
+  --violet:#5A3A8A;--violet-lt:#EAE1F5;
+  --sage:#3E6E3E;--sage-lt:#DDF0DD;
+  --border:#DDD6CC;--border2:#EDE7DD;
+  --r:10px;--r-sm:6px;
+  --sh:0 2px 12px rgba(24,22,15,.06),0 1px 3px rgba(24,22,15,.04);
+  --sh-md:0 6px 28px rgba(24,22,15,.10),0 2px 6px rgba(24,22,15,.05);
+}
+html{font-size:16px}
+body{background:var(--bg);color:var(--ink);font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-weight:400;line-height:1.5;-webkit-font-smoothing:antialiased}
+
+/* ── HEADER ── */
+header{background:var(--ink);color:#FFF;padding:clamp(32px,6vw,64px) clamp(24px,6vw,72px);position:relative;overflow:hidden}
+header::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 70% at 85% 15%,rgba(27,79,138,.25) 0%,transparent 60%),radial-gradient(ellipse 35% 55% at 15% 80%,rgba(90,58,138,.15) 0%,transparent 55%);pointer-events:none}
+header::after{content:'B2B REPORT 2024';position:absolute;top:28px;right:48px;font-size:10px;font-weight:700;letter-spacing:.2em;color:rgba(255,255,255,.12)}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(27,79,138,.2);border:1px solid rgba(27,79,138,.4);color:#7EB8FF;padding:5px 14px;border-radius:100px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-bottom:22px}
+.eyebrow::before{content:'▲';font-size:8px}
+.h-title{font-family:'Fraunces',serif;font-size:clamp(28px,5vw,52px);font-weight:900;line-height:1.0;letter-spacing:-.02em;max-width:800px;position:relative;z-index:1}
+.h-title em{color:#7EB8FF;font-style:normal}
+.h-desc{margin-top:14px;font-size:15px;color:rgba(255,255,255,.5);max-width:600px;line-height:1.65;position:relative;z-index:1}
+.h-stats{display:flex;gap:0;margin-top:38px;border-top:1px solid rgba(255,255,255,.08);padding-top:30px;flex-wrap:wrap;position:relative;z-index:1}
+.st-item{padding:0 36px 0 0;margin-right:36px;border-right:1px solid rgba(255,255,255,.1);flex-shrink:0}
+.st-item:last-child{border-right:none}
+.st-val{font-family:'Fraunces',serif;font-size:clamp(22px,3vw,32px);font-weight:700;color:#7EB8FF;line-height:1;margin-bottom:5px}
+.st-lbl{font-size:10px;color:rgba(255,255,255,.35);letter-spacing:.07em;text-transform:uppercase;font-weight:500}
+
+/* ── MAIN ── */
+main{padding:clamp(24px,4vw,52px) clamp(20px,5vw,64px);max-width:1340px;margin:0 auto}
+
+/* ── KPI STRIP ── */
+.kstrip{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:40px}
+.kc{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);padding:22px 24px;box-shadow:var(--sh);position:relative;overflow:hidden;transition:box-shadow .2s}
+.kc:hover{box-shadow:var(--sh-md)}
+.kc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:var(--r) var(--r) 0 0}
+.kc.blue::before{background:var(--blue)}.kc.amber::before{background:var(--amber)}.kc.rust::before{background:var(--rust)}.kc.violet::before{background:var(--violet)}.kc.teal::before{background:var(--teal)}.kc.sage::before{background:var(--sage)}
+.kc-ico{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:17px;margin-bottom:12px}
+.kc.blue .kc-ico{background:var(--blue-lt)}.kc.amber .kc-ico{background:var(--amber-lt)}.kc.rust .kc-ico{background:var(--rust-lt)}.kc.violet .kc-ico{background:var(--violet-lt)}.kc.teal .kc-ico{background:var(--teal-lt)}.kc.sage .kc-ico{background:var(--sage-lt)}
+.kc-n{font-family:'Fraunces',serif;font-size:32px;font-weight:700;line-height:1;margin-bottom:7px}
+.kc.blue .kc-n{color:var(--blue)}.kc.amber .kc-n{color:var(--amber)}.kc.rust .kc-n{color:var(--rust)}.kc.violet .kc-n{color:var(--violet)}.kc.teal .kc-n{color:var(--teal)}.kc.sage .kc-n{color:var(--sage)}
+.kc-ttl{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:4px}
+.kc-desc{font-size:11.5px;color:var(--ink3);line-height:1.45}
+
+/* ── TABS ── */
+.tab-nav{display:flex;gap:4px;background:var(--surface2);border:1.5px solid var(--border);border-radius:var(--r);padding:5px;margin-bottom:32px;width:fit-content;flex-wrap:wrap}
+.tbtn{font-family:'Plus Jakarta Sans',sans-serif;font-size:12.5px;font-weight:600;padding:9px 20px;background:transparent;color:var(--ink3);border:none;border-radius:7px;cursor:pointer;transition:all .2s;white-space:nowrap}
+.tbtn:hover{color:var(--ink);background:rgba(255,255,255,.7)}
+.tbtn.active{background:var(--ink);color:#FFF;box-shadow:0 2px 8px rgba(24,22,15,.2)}
+.tp{display:none}.tp.active{display:block}
+
+/* ── SECTION ── */
+.sec-tag{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:8px}
+.sec-tag::before{content:'';display:block;width:18px;height:2px;background:var(--blue);border-radius:2px}
+.sec-title{font-family:'Fraunces',serif;font-size:25px;font-weight:700;color:var(--ink);margin-bottom:10px;letter-spacing:-.01em}
+.sec-note{font-size:13.5px;color:var(--ink2);line-height:1.6;max-width:860px;margin-bottom:24px}
+
+/* ── CARDS ── */
+.card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);padding:28px 32px;margin-bottom:20px;box-shadow:var(--sh)}
+.card-ttl{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:4px}
+.card-desc{font-size:12px;color:var(--ink3);line-height:1.5;margin-bottom:20px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
+.cw{position:relative;width:100%}
+
+/* ── TABLE ── */
+.tbl{width:100%;border-collapse:collapse;font-size:13px}
+.tbl thead th{font-size:10.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink3);padding:10px 13px;text-align:left;border-bottom:2px solid var(--border);background:var(--surface2)}
+.tbl tbody td{padding:11px 13px;border-bottom:1px solid var(--border2);vertical-align:middle;color:var(--ink)}
+.tbl tbody tr:last-child td{border-bottom:none}
+.tbl tbody tr:hover td{background:var(--surface2)}
+.rank-n{font-family:'Fraunces',serif;font-size:15px;font-weight:700;color:var(--border)}
+.pname{font-weight:600;font-size:13px}
+.badge{display:inline-flex;align-items:center;font-size:9.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:4px;margin-left:7px}
+.hot{background:var(--rust-lt);color:var(--rust)}
+.nw{background:var(--teal-lt);color:var(--teal)}
+.top{background:var(--blue-lt);color:var(--blue)}
+.bar-track{background:var(--border2);border-radius:3px;height:7px;overflow:hidden;min-width:110px}
+.bar-fill{height:100%;border-radius:3px}
+.pct-val{font-family:'Fraunces',serif;font-size:14px;font-weight:700;text-align:right}
+.tr-up{font-size:11.5px;font-weight:600;color:var(--teal)}
+.tr-flat{font-size:11.5px;color:var(--ink3)}
+
+/* ── SECTOR CARDS ── */
+.sc{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);padding:20px;box-shadow:var(--sh);transition:box-shadow .2s,transform .2s}
+.sc:hover{box-shadow:var(--sh-md);transform:translateY(-2px)}
+.sc-ico{font-size:24px;margin-bottom:10px}
+.sc-name{font-family:'Fraunces',serif;font-size:18px;font-weight:700;margin-bottom:4px}
+.sc-share{font-size:22px;font-weight:800;font-family:'Fraunces',serif;margin-bottom:4px}
+.sc-desc{font-size:11.5px;color:var(--ink3);line-height:1.45}
+.sc-tag{display:inline-block;font-size:9.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:4px;margin-bottom:8px}
+
+/* ── SIZE CARDS ── */
+.sz-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);padding:22px;box-shadow:var(--sh)}
+.sz-lbl{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:8px}
+.sz-name{font-family:'Fraunces',serif;font-size:21px;font-weight:700;margin-bottom:6px}
+.sz-val{font-size:13px;color:var(--teal);font-weight:600;margin-bottom:8px}
+.sz-items{font-size:11.5px;color:var(--ink2);line-height:1.6}
+.sz-bar{background:var(--border2);border-radius:2px;height:5px;margin-top:12px;overflow:hidden}
+.sz-fill{height:100%;border-radius:2px}
+
+/* ── GEO CARDS ── */
+.geo-card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);padding:18px;box-shadow:var(--sh);transition:all .2s}
+.geo-card:hover{box-shadow:var(--sh-md);transform:translateY(-2px)}
+.geo-card.primo{border-color:var(--blue)}
+.geo-rank{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:5px}
+.geo-name{font-family:'Fraunces',serif;font-size:20px;font-weight:700;margin-bottom:4px}
+.geo-card.primo .geo-name{color:var(--blue)}
+.geo-val{font-size:12px;color:var(--teal);font-weight:600;margin-bottom:8px}
+.geo-bar{background:var(--border2);border-radius:2px;height:4px;overflow:hidden}
+.geo-fill{height:100%;background:var(--teal);border-radius:2px}
+.geo-card.primo .geo-fill{background:var(--blue)}
+
+/* ── INSIGHT BOXES ── */
+.insight-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px}
+.ins{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);padding:20px;box-shadow:var(--sh)}
+.ins-num{font-family:'Fraunces',serif;font-size:34px;font-weight:700;line-height:1;margin-bottom:6px}
+.ins-ttl{font-size:12px;font-weight:700;color:var(--ink);margin-bottom:4px}
+.ins-desc{font-size:11.5px;color:var(--ink3);line-height:1.45}
+
+/* ── LEGEND ── */
+.legend{display:flex;gap:18px;margin-top:14px;flex-wrap:wrap}
+.li{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--ink2);font-weight:500}
+.ld{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+
+/* ── SOURCE ── */
+.src{background:var(--ink);color:rgba(255,255,255,.3);border-radius:var(--r);padding:22px 26px;font-size:11.5px;line-height:1.85;margin-top:8px}
+.src strong{color:#7EB8FF;font-weight:600}
+.src .warn{color:rgba(255,255,255,.18);font-size:10.5px;margin-top:8px;display:block}
+
+/* ── RESP ── */
+@media(max-width:1100px){.kstrip{grid-template-columns:repeat(2,1fr)}.g4{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:900px){header,main{padding:24px}.g2{grid-template-columns:1fr}.g3{grid-template-columns:1fr 1fr}.insight-row{grid-template-columns:1fr 1fr}}
+@media(max-width:580px){.kstrip,.g3,.g4,.insight-row{grid-template-columns:1fr}.tab-nav{width:100%}.tbtn{flex:1;text-align:center;padding:9px 8px;font-size:11px}.h-stats{gap:20px}.st-item{border-right:none;margin-right:0;padding-right:0}}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="eyebrow">Mercato B2B · Stampa &amp; Personalizzazione Aziendale</div>
+  <h1 class="h-title">Cosa Comprano le <em>Aziende Italiane</em><br>in Stampa &amp; Personalizzazione</h1>
+  <p class="h-desc">Prodotti acquistati, volumi, settori merceologici, dimensione aziendale e distribuzione geografica in Lombardia. Focus esclusivo sul canale B2B. Fonti: PPAI 2024 · ISTAT · Gadgetmania.it · Roland DG · Confartigianato · Pixartprinting</p>
+  <div class="h-stats">
+    <div class="st-item"><div class="st-val">€1,45 Mld</div><div class="st-lbl">Mercato italiano gadget promo 2024</div></div>
+    <div class="st-item"><div class="st-val">4,4 Mln</div><div class="st-lbl">PMI italiane attive (ISTAT 2024)</div></div>
+    <div class="st-item"><div class="st-val">+1,8%</div><div class="st-lbl">Crescita settore vs 2023</div></div>
+    <div class="st-item"><div class="st-val">26,6%</div><div class="st-lbl">Abbigliamento = 1° categoria B2B (PPAI)</div></div>
+  </div>
+</header>
+
+<main>
+
+  <!-- KPI -->
+  <div class="kstrip">
+    <div class="kc blue"><div class="kc-ico">🏭</div><div class="kc-n">99,9%</div><div class="kc-ttl">PMI sul totale imprese</div><div class="kc-desc">Il 99,9% delle aziende italiane è una PMI. Il 95% è microimpresa (0–9 addetti). ISTAT 2024.</div></div>
+    <div class="kc amber"><div class="kc-ico">📦</div><div class="kc-n">26,6%</div><div class="kc-ttl">Abbigliamento B2B promo</div><div class="kc-desc">1ª categoria assoluta nei prodotti promozionali B2B. Seguono drinkware (10,2%) e cappellini (9%). PPAI 2024.</div></div>
+    <div class="kc rust"><div class="kc-ico">🏢</div><div class="kc-n">23%</div><div class="kc-ttl">Commercio = settore top</div><div class="kc-desc">Il 23% delle aziende italiane opera nel commercio: primo settore acquirente di stampa. ISTAT 2024.</div></div>
+    <div class="kc violet"><div class="kc-ico">🌍</div><div class="kc-n">~25%</div><div class="kc-ttl">Lombardia sul nazionale</div><div class="kc-desc">La Lombardia genera ~25% della domanda B2B nazionale. Un quarto di tutte le PMI digitali è lombardo. ISTAT.</div></div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tab-nav">
+    <button class="tbtn active" onclick="showTab('prodotti',this)">📦 Prodotti Acquistati</button>
+    <button class="tbtn" onclick="showTab('settori',this)">🏢 Settori Aziendali</button>
+    <button class="tbtn" onclick="showTab('dimensione',this)">📊 Dimensione Aziendale</button>
+    <button class="tbtn" onclick="showTab('geo',this)">🗺️ Lombardia B2B</button>
+    <button class="tbtn" onclick="showTab('insight',this)">💡 Insight Strategici</button>
+  </div>
+
+  <!-- ── TAB 1: PRODOTTI ── -->
+  <div id="t-prodotti" class="tp active">
+    <div class="sec-tag">01 — Prodotti</div>
+    <h2 class="sec-title">Cosa Acquistano le Aziende</h2>
+    <p class="sec-note">Ranking dei prodotti di stampa e personalizzazione ordinati per quota di acquisto B2B. Dati PPAI Sales Volume 2024 (mercato globale) adattati al contesto italiano con fonti Pixartprinting, Gadgetmania, Roland DG, Gadget48, Flyeralarm IT.</p>
+
+    <div class="card">
+      <div class="card-ttl">Quota % acquisti B2B per categoria prodotto — Italia 2024</div>
+      <div class="card-desc">Fonte: PPAI Sales Volume Report 2024 · Pixartprinting IT · Gadgetmania.it · Flyeralarm IT · Roland DG Italia</div>
+      <div class="cw" style="height:390px"><canvas id="c1"></canvas></div>
+    </div>
+
+    <div class="card">
+      <div class="card-ttl">Ranking dettagliato — quota B2B, ticket medio e frequenza d'acquisto</div>
+      <div class="card-desc">La colonna "Ticket medio" indica il valore stimato per ordine aziendale. Le aziende ordinano in quantità minime (50–500 pz) con riacquisto periodico.</div>
+      <table class="tbl">
+        <thead><tr><th>#</th><th>Prodotto / Categoria</th><th>Uso principale</th><th>Quota B2B</th><th>%</th><th>Ticket medio ordine</th><th>Frequenza</th></tr></thead>
+        <tbody id="ptb"></tbody>
+      </table>
+    </div>
+
+    <div class="g2">
+      <div class="card" style="margin-bottom:0">
+        <div class="card-ttl">Distribuzione per macro-categoria</div>
+        <div class="card-desc">Aggregazione in 5 macro-famiglie. Abbigliamento e materiale tipografico dominano il B2B.</div>
+        <div class="cw" style="height:280px"><canvas id="c2"></canvas></div>
+      </div>
+      <div class="card" style="margin-bottom:0">
+        <div class="card-ttl">Stagionalità degli ordini B2B</div>
+        <div class="card-desc">Indice di domanda per mese (100 = media). Picchi a settembre-ottobre (fiere) e novembre-dicembre (regali aziendali).</div>
+        <div class="cw" style="height:280px"><canvas id="c3"></canvas></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TAB 2: SETTORI ── -->
+  <div id="t-settori" class="tp">
+    <div class="sec-tag">02 — Settori</div>
+    <h2 class="sec-title">Tipologie di Aziende che Acquistano di Più</h2>
+    <p class="sec-note">Distribuzione degli acquisti di stampa e personalizzazione per settore merceologico. Dati PPAI Consumer Study 2024 (Education, B2B Services, Construction top 3 globali), adattati alla struttura ATECO dell'economia italiana (ISTAT 2024). Il commercio guida con il 23% delle imprese attive.</p>
+
+    <div class="card">
+      <div class="card-ttl">Quota acquisti stampa/personalizzazione per settore aziendale</div>
+      <div class="card-desc">Fonte: PPAI Consumer Study 2024 + ISTAT struttura imprese Italia 2024. I settori Education e Construction sono stati ricondotti alle categorie ATECO italiane.</div>
+      <div class="cw" style="height:340px"><canvas id="c4"></canvas></div>
+    </div>
+
+    <div class="g3">
+      <div class="sc">
+        <div class="sc-tag" style="background:var(--blue-lt);color:var(--blue)">#1 Settore</div>
+        <div class="sc-ico">🛒</div>
+        <div class="sc-name">Commercio & Retail</div>
+        <div class="sc-share" style="color:var(--blue)">19%</div>
+        <div class="sc-desc">Negozi, catene retail, e-commerce, grossisti. Massima frequenza di ordine: volantini, etichette, shopper brandizzate, insegne. Ticket medio: €180–€600/ordine.</div>
+      </div>
+      <div class="sc">
+        <div class="sc-tag" style="background:var(--amber-lt);color:var(--amber)">#2 Settore</div>
+        <div class="sc-ico">🔧</div>
+        <div class="sc-name">Manifattura & Industria</div>
+        <div class="sc-share" style="color:var(--amber)">17%</div>
+        <div class="sc-desc">Fabbriche, artigiani, PMI produttive. Richiedono etichette di prodotto, packaging, safety print, merchandising fiera. Ticket medio: €300–€1.200/ordine.</div>
+      </div>
+      <div class="sc">
+        <div class="sc-tag" style="background:var(--rust-lt);color:var(--rust)">#3 Settore</div>
+        <div class="sc-ico">💼</div>
+        <div class="sc-name">Servizi Professionali</div>
+        <div class="sc-share" style="color:var(--rust)">16%</div>
+        <div class="sc-desc">Consulenti, agenzie, studi legali, commercialisti. Biglietti da visita premium, brochure, cartelle stampa, gadget corporate. Ticket medio: €120–€450/ordine.</div>
+      </div>
+      <div class="sc">
+        <div class="sc-tag" style="background:var(--teal-lt);color:var(--teal)">#4 Settore</div>
+        <div class="sc-ico">🍕</div>
+        <div class="sc-name">Ristorazione & Food</div>
+        <div class="sc-share" style="color:var(--teal)">13%</div>
+        <div class="sc-desc">Bar, ristoranti, catering, food delivery. Menù, tovagliette, shopper, divise con logo. Alta stagionalità (primavera/estate). Ticket medio: €80–€350/ordine.</div>
+      </div>
+      <div class="sc">
+        <div class="sc-tag" style="background:var(--violet-lt);color:var(--violet)">#5 Settore</div>
+        <div class="sc-ico">🏗️</div>
+        <div class="sc-name">Costruzioni & Edilizia</div>
+        <div class="sc-share" style="color:var(--violet)">11%</div>
+        <div class="sc-desc">Imprese edili, installatori, serramentisti. Cartellonistica di cantiere, divise con logo, DPI personalizzati, roll-up eventi. Ticket medio: €200–€800/ordine.</div>
+      </div>
+      <div class="sc">
+        <div class="sc-tag" style="background:var(--sage-lt);color:var(--sage)">#6+ Altri</div>
+        <div class="sc-ico">🏥</div>
+        <div class="sc-name">Sanità, ICT, Istruzione</div>
+        <div class="sc-share" style="color:var(--sage)">24%</div>
+        <div class="sc-desc">Cliniche, software house, scuole, università. Merchandising eventi, stampa istituzionale, gadget pazienti/studenti. Budget più selezionato ma crescente.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-ttl">Prodotto principale acquistato per settore</div>
+      <div class="card-desc">Ogni settore ha un "prodotto ancora" che guida il ciclo d'acquisto. Fonte: Gadgetmania.it, Pixartprinting, PPAI Consumer Study 2024.</div>
+      <div class="cw" style="height:310px"><canvas id="c5"></canvas></div>
+    </div>
+  </div>
+
+  <!-- ── TAB 3: DIMENSIONE ── -->
+  <div id="t-dimensione" class="tp">
+    <div class="sec-tag">03 — Dimensione</div>
+    <h2 class="sec-title">Comportamento d'Acquisto per Dimensione Aziendale</h2>
+    <p class="sec-note">Le microimprese (0–9 add.) rappresentano il 95% del totale ma con ticket ridotti. Le medie imprese (50–249 add.) generano il volume di spesa più alto pro-capite. Dati ISTAT 2024 + elaborazione su dati Pixartprinting e Flyeralarm IT.</p>
+
+    <div class="g4">
+      <div class="sz-card">
+        <div class="sz-lbl">Microimpresa · 0–9 addetti</div>
+        <div class="sz-name">Micro</div>
+        <div class="sz-val">95% imprese · Ticket: €60–200</div>
+        <div class="sz-items">📌 Biglietti da visita<br>📌 Volantini A5/A4<br>📌 Timbri personalizzati<br>📌 Etichette adesive<br>📌 Shopper with logo<br><br><em style="color:var(--ink3);font-size:11px">Acquisto: 1–3 volte/anno · Priorità: prezzo basso, velocità consegna</em></div>
+        <div class="sz-bar"><div class="sz-fill" style="width:40%;background:var(--border)"></div></div>
+      </div>
+      <div class="sz-card" style="border-color:var(--blue)">
+        <div class="sz-lbl">Piccola impresa · 10–49 addetti</div>
+        <div class="sz-name" style="color:var(--blue)">Piccola</div>
+        <div class="sz-val">4% imprese · Ticket: €200–800</div>
+        <div class="sz-items">📌 Kit identità visiva<br>📌 Gadget fiera (300–500 pz)<br>📌 Polo/felpe con logo<br>📌 Roll-up e banner<br>📌 Calendari aziendali<br><br><em style="color:var(--ink3);font-size:11px">Acquisto: 3–6 volte/anno · Budget marketing strutturato</em></div>
+        <div class="sz-bar"><div class="sz-fill" style="width:65%;background:var(--blue)"></div></div>
+      </div>
+      <div class="sz-card" style="border-color:var(--amber)">
+        <div class="sz-lbl">Media impresa · 50–249 addetti</div>
+        <div class="sz-name" style="color:var(--amber)">Media</div>
+        <div class="sz-val">0,5% imprese · Ticket: €800–3.500</div>
+        <div class="sz-items">📌 Merchandising eventi<br>📌 Packaging custom<br>📌 Abbigliamento da lavoro<br>📌 Campagne volantinaggio<br>📌 Gadget dipendenti (onboarding)<br><br><em style="color:var(--ink3);font-size:11px">Acquisto: mensile/trimestrale · Responsabile acquisti dedicato</em></div>
+        <div class="sz-bar"><div class="sz-fill" style="width:85%;background:var(--amber)"></div></div>
+      </div>
+      <div class="sz-card" style="border-color:var(--rust)">
+        <div class="sz-lbl">Grande impresa · 250+ addetti</div>
+        <div class="sz-name" style="color:var(--rust)">Grande</div>
+        <div class="sz-val">0,1% imprese · Ticket: €3.500–20.000+</div>
+        <div class="sz-items">📌 Brand kit annuali<br>📌 Campagne promozionali<br>📌 Divise aziendali<br>📌 Packaging completo<br>📌 Print management esternalizzato<br><br><em style="color:var(--ink3);font-size:11px">Acquisto: contratti annuali · Gare d'appalto · Fornitore unico</em></div>
+        <div class="sz-bar"><div class="sz-fill" style="width:100%;background:var(--rust)"></div></div>
+      </div>
+    </div>
+
+    <div class="g2">
+      <div class="card" style="margin-bottom:0">
+        <div class="card-ttl">Distribuzione della spesa B2B per dimensione aziendale</div>
+        <div class="card-desc">Le medie e grandi imprese generano il 60% del fatturato B2B nonostante rappresentino meno del 1% delle aziende. Fonte: elaborazione PPAI + ISTAT.</div>
+        <div class="cw" style="height:280px"><canvas id="c6"></canvas></div>
+      </div>
+      <div class="card" style="margin-bottom:0">
+        <div class="card-ttl">Canale d'acquisto preferito per dimensione</div>
+        <div class="card-desc">Le microimprese privilegiano l'acquisto online diretto; le grandi usano agenti o gare d'appalto. Fonte: Roland DG, Flyeralarm, stime di mercato.</div>
+        <div class="cw" style="height:280px"><canvas id="c7"></canvas></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TAB 4: LOMBARDIA GEO ── -->
+  <div id="t-geo" class="tp">
+    <div class="sec-tag">04 — Territorio</div>
+    <h2 class="sec-title">Distribuzione B2B in Lombardia</h2>
+    <p class="sec-note">La Lombardia ospita oltre 900.000 imprese attive ed è la 1ª regione italiana per densità di PMI manifatturiere e di servizi. Un quarto delle imprese italiane digitalizzate risiede in Lombardia. Milano, Brescia e Bergamo concentrano oltre il 60% della domanda B2B regionale di stampa e personalizzazione.</p>
+
+    <div class="card">
+      <div class="card-ttl">Domanda B2B stimata per provincia lombarda — Stampa & Personalizzazione (M€)</div>
+      <div class="card-desc">Stima proporzionata al PIL provinciale e alla densità di PMI. Fonte: Confartigianato Lombardia, Camera di Commercio Milano, ISTAT struttura imprese 2024.</div>
+      <div class="cw" style="height:310px"><canvas id="c8"></canvas></div>
+    </div>
+
+    <div class="g3">
+      <div class="geo-card primo">
+        <div class="geo-rank">#1 Lombardia · #1 Italia</div>
+        <div class="geo-name">Milano</div>
+        <div class="geo-val">€380M stim. · 310.000+ PMI · Hub servizi e fashion</div>
+        <div class="geo-bar"><div class="geo-fill" style="width:100%"></div></div>
+      </div>
+      <div class="geo-card">
+        <div class="geo-rank">#2 Lombardia · Top 5 Italia</div>
+        <div class="geo-name">Brescia</div>
+        <div class="geo-val">€95M stim. · 85.000+ PMI · Manifattura pesante</div>
+        <div class="geo-bar"><div class="geo-fill" style="width:25%"></div></div>
+      </div>
+      <div class="geo-card">
+        <div class="geo-rank">#3 Lombardia · Top 8 Italia</div>
+        <div class="geo-name">Bergamo</div>
+        <div class="geo-val">€82M stim. · 75.000+ PMI · Logistica e industria</div>
+        <div class="geo-bar"><div class="geo-fill" style="width:22%"></div></div>
+      </div>
+      <div class="geo-card">
+        <div class="geo-rank">#4 Lombardia</div>
+        <div class="geo-name">Monza Brianza</div>
+        <div class="geo-val">~€40M · 55.000+ PMI · Design e arredamento</div>
+        <div class="geo-bar"><div class="geo-fill" style="width:11%"></div></div>
+      </div>
+      <div class="geo-card">
+        <div class="geo-rank">#5 Lombardia</div>
+        <div class="geo-name">Varese</div>
+        <div class="geo-val">~€36M · 48.000+ PMI · Export, chimico, tessile</div>
+        <div class="geo-bar"><div class="geo-fill" style="width:9%"></div></div>
+      </div>
+      <div class="geo-card">
+        <div class="geo-rank">#6 Lombardia</div>
+        <div class="geo-name">Como + Lecco</div>
+        <div class="geo-val">~€28M · tessile seta, turismo, moda</div>
+        <div class="geo-bar"><div class="geo-fill" style="width:7%"></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-ttl">Settore dominante per provincia — prodotto più richiesto in B2B</div>
+      <div class="card-desc">Il prodotto "top" per ogni area geografica cambia in base alla vocazione industriale locale. Fonte: stime su dati Camera di Commercio e Confartigianato provinciali.</div>
+      <div class="cw" style="height:300px"><canvas id="c9"></canvas></div>
+    </div>
+  </div>
+
+  <!-- ── TAB 5: INSIGHT ── -->
+  <div id="t-insight" class="tp">
+    <div class="sec-tag">05 — Strategia</div>
+    <h2 class="sec-title">Insight Strategici per il Mercato B2B</h2>
+    <p class="sec-note">Analisi dei comportamenti d'acquisto aziendali, driver decisionali e trend emergenti per il 2024–2025 nel settore stampa e personalizzazione B2B in Italia.</p>
+
+    <div class="insight-row">
+      <div class="ins">
+        <div class="ins-num" style="color:var(--blue)">55,3%</div>
+        <div class="ins-ttl">Pressione sul prezzo in aumento</div>
+        <div class="ins-desc">Oltre la metà degli acquirenti B2B è diventata più price-sensitive nel 2024. La velocità di consegna e il prezzo dominano i criteri d'acquisto. (PPAI 2025)</div>
+      </div>
+      <div class="ins">
+        <div class="ins-num" style="color:var(--amber)">13,8%</div>
+        <div class="ins-ttl">Prodotti sostenibili in forte crescita</div>
+        <div class="ins-desc">I prodotti promozionali eco-friendly rappresentano il 13,8% del totale, con una crescita del +20% vs 2023. Le PMI sono il motore principale. (PPAI 2024)</div>
+      </div>
+      <div class="ins">
+        <div class="ins-num" style="color:var(--teal)">85%</div>
+        <div class="ins-ttl">Memorabilità del gadget aziendale</div>
+        <div class="ins-desc">L'85% dei destinatari ricorda il mittente di un gadget promozionale a distanza di 2 anni. ROI superiore a radio e video advertising. (ASI 2019)</div>
+      </div>
+    </div>
+
+    <div class="insight-row">
+      <div class="ins">
+        <div class="ins-num" style="color:var(--violet)">72%</div>
+        <div class="ins-ttl">Qualità = reputazione aziendale</div>
+        <div class="ins-desc">Il 72% dei clienti B2B ritiene che la qualità del gadget rifletta direttamente la reputazione dell'azienda. Il risparmio eccessivo penalizza il brand. (PPAI)</div>
+      </div>
+      <div class="ins">
+        <div class="ins-num" style="color:var(--rust)">Q4</div>
+        <div class="ins-ttl">Picco stagionale ordini</div>
+        <div class="ins-desc">Settembre–dicembre genera il 45% degli ordini B2B annuali. Natale (gadget aziendali), ottobre–novembre (fiere) e settembre (rientro post-estivo) sono i momenti chiave.</div>
+      </div>
+      <div class="ins">
+        <div class="ins-num" style="color:var(--sage)">1 src</div>
+        <div class="ins-ttl">Il B2B preferisce fornitore unico</div>
+        <div class="ins-desc">Le aziende che cercano articoli di cancelleria e omaggi fiera preferiscono spendere di più affidandosi a un unico fornitore completo. (Roland DG 2024)</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-ttl">Driver decisionali nell'acquisto B2B di stampa e personalizzazione</div>
+      <div class="card-desc">Fattori che influenzano la scelta del fornitore, in ordine di importanza. Fonte: PPAI Consumer Study 2024 + Roland DG Italia 2024.</div>
+      <div class="cw" style="height:300px"><canvas id="c10"></canvas></div>
+    </div>
+
+    <div class="card">
+      <div class="card-ttl">Occasioni d'acquisto B2B — quando le aziende ordinano</div>
+      <div class="card-desc">Le principali motivazioni che scatenano un ordine di stampa/personalizzazione in contesto aziendale. Fonte: Gadgetmania.it, Pixartprinting, Gadget48 survey clienti.</div>
+      <div class="cw" style="height:290px"><canvas id="c11"></canvas></div>
+    </div>
+  </div>
+
+  <!-- SOURCE -->
+  <div class="src">
+    <strong>FONTI DEI DATI B2B</strong><br>
+    · <strong>PPAI Sales Volume Report 2024</strong> &nbsp;quota prodotti, settori, trend sostenibilità — mercato US/globale<br>
+    · <strong>PPAI Consumer Study 2024 "Understanding End Buyers"</strong> &nbsp;comportamenti acquirenti B2B, settori, driver decisionali<br>
+    · <strong>ISTAT — Struttura Imprese 2024 / ICT nelle Imprese 2024</strong> &nbsp;numerosità PMI, settori ATECO, digitalizzazione<br>
+    · <strong>Gadgetmania.it — "In crescita la spesa delle aziende italiane" (2024)</strong> &nbsp;€1,45 Mld mercato gadget promo Italia<br>
+    · <strong>Roland DG Italia — Tendenze Stampa Digitale 2024</strong> &nbsp;comportamenti acquirenti, fornitore unico, iperpersonalizzazione<br>
+    · <strong>Confartigianato / Camera di Commercio Lombardia</strong> &nbsp;distribuzione PMI per provincia<br>
+    · <strong>Pixartprinting, Flyeralarm IT, Gadget48, StampaSi</strong> &nbsp;catalogo prodotti B2B, segmenti clienti<br>
+    · <strong>ASI Ad Impressions Study 2019/2020</strong> &nbsp;memorabilità gadget promozionali
+    <span class="warn">⚠ I dati di spesa B2B per provincia lombarda sono stime proporzionali basate su PIL provinciale e densità PMI. Non esistono dataset pubblici granulari specifici per il solo settore "stampa B2B" a livello provinciale.</span>
+  </div>
+
+</main>
+
+<script>
+function showTab(id,btn){document.querySelectorAll('.tp').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.tbtn').forEach(b=>b.classList.remove('active'));document.getElementById('t-'+id).classList.add('active');btn.classList.add('active')}
+
+const TT={backgroundColor:'#18160F',titleColor:'#7EB8FF',bodyColor:'rgba(255,255,255,.75)',borderColor:'rgba(255,255,255,.08)',borderWidth:1,padding:12,cornerRadius:8,titleFont:{family:"'Plus Jakarta Sans',sans-serif",size:13,weight:'700'},bodyFont:{family:"'Plus Jakarta Sans',sans-serif",size:12}};
+
+/* PRODOTTI B2B */
+const PD=[
+  {name:'Abbigliamento con logo (polo, felpe, t-shirt)',uso:'Divise/eventi',pct:26.6,color:'#1B4F8A',trend:'up',badge:'top',ticket:'€350–1.200'},
+  {name:'Gadget drinkware (tazze, borracce, termos)',uso:'Regali/fiere',pct:10.2,color:'#C4780A',trend:'up',badge:'hot',ticket:'€180–600'},
+  {name:'Cappellini e berretti brandizzati',uso:'Merchandising',pct:9.0,color:'#5A3A8A',trend:'up',badge:'new',ticket:'€150–500'},
+  {name:'Biglietti da visita premium',uso:'Networking B2B',pct:8.5,color:'#1A6462',trend:'flat',badge:'',ticket:'€40–200'},
+  {name:'Borse/shopper promozionali',uso:'Fiere/eventi',pct:7.8,color:'#3E6E3E',trend:'up',badge:'',ticket:'€200–700'},
+  {name:'Penne e scrittura personalizzata',uso:'Gadget office',pct:7.0,color:'#8A5A1A',trend:'flat',badge:'',ticket:'€80–300'},
+  {name:'Roll-up / Banner / Striscioni',uso:'Fiere/punti vendita',pct:6.5,color:'#A83520',trend:'flat',badge:'',ticket:'€120–500'},
+  {name:'Volantini / Flyer / Brochure',uso:'Marketing locale',pct:6.0,color:'#2A7A7A',trend:'flat',badge:'',ticket:'€60–250'},
+  {name:'Calendari e agende aziendali',uso:'Regalo fine anno',pct:5.5,color:'#6A3A7A',trend:'flat',badge:'',ticket:'€80–400'},
+  {name:'Prodotti sostenibili/eco',uso:'Brand green',pct:4.5,color:'#3E6E3E',trend:'up',badge:'new',ticket:'€150–600'},
+  {name:'Etichette e packaging personalizzato',uso:'Prodotto/retail',pct:4.2,color:'#7A5A3A',trend:'up',badge:'',ticket:'€100–800'},
+  {name:'Targhe, cartellonistica cantiere',uso:'Segnaletica',pct:4.2,color:'#5A7A8A',trend:'flat',badge:'',ticket:'€80–350'},
+];
+
+new Chart(document.getElementById('c1'),{type:'bar',data:{labels:PD.map(p=>p.name),datasets:[{label:'Quota %',data:PD.map(p=>p.pct),backgroundColor:PD.map(p=>p.color),borderRadius:4,borderSkipped:false,barThickness:20}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{...TT,callbacks:{label:c=>` ${c.parsed.x}% degli acquisti B2B — ${PD[c.dataIndex].uso}`}}},scales:{x:{grid:{color:'rgba(0,0,0,.05)'},ticks:{font:{family:"'Plus Jakarta Sans'",size:11},callback:v=>v+'%',color:'#7A7468'},max:32},y:{grid:{display:false},ticks:{font:{family:"'Plus Jakarta Sans'",size:11.5},color:'#18160F'}}}}});
+
+const tb=document.getElementById('ptb');
+PD.forEach((p,i)=>{
+  const b=p.badge==='top'?`<span class="badge top">TOP</span>`:p.badge==='hot'?`<span class="badge hot">HOT</span>`:p.badge==='new'?`<span class="badge nw">NEW</span>`:'';
+  const tc=p.trend==='up'?'class="tr-up"':'class="tr-flat"';
+  tb.innerHTML+=`<tr><td><span class="rank-n">${String(i+1).padStart(2,'0')}</span></td><td><span class="pname">${p.name}</span>${b}</td><td style="font-size:11.5px;color:var(--ink3)">${p.uso}</td><td><div class="bar-track"><div class="bar-fill" style="width:${(p.pct/26.6)*100}%;background:${p.color}"></div></div></td><td class="pct-val" style="color:${p.color}">${p.pct}%</td><td style="font-size:12px;color:var(--teal);font-weight:600">${p.ticket}</td><td ${tc}>${p.trend==='up'?'▲ Crescente':'→ Stabile'}</td></tr>`;
+});
+
+/* MACRO CATEGORIE DONUT */
+new Chart(document.getElementById('c2'),{type:'doughnut',data:{labels:['Abbigliamento & Divise (26,6%)','Drinkware & Gadget (17,2%)','Materiale tipografico (20,5%)','Display & Segnaletica (10,7%)','Packaging & Etichette (8,7%)','Eco & Innovativi (4,5%)','Altro (11,8%)'],datasets:[{data:[26.6,17.2,20.5,10.7,8.7,4.5,11.8],backgroundColor:['#1B4F8A','#C4780A','#1A6462','#5A3A8A','#A83520','#3E6E3E','#DDD6CC'],borderColor:'#FDFAF5',borderWidth:3}]},options:{responsive:true,maintainAspectRatio:false,cutout:'60%',plugins:{legend:{position:'right',labels:{font:{family:"'Plus Jakarta Sans'",size:11},color:'#18160F',padding:8,boxWidth:11,usePointStyle:true}},tooltip:{...TT,callbacks:{label:c=>` ${c.parsed}% degli ordini B2B`}}}}});
+
+/* STAGIONALITA */
+const mesi=['Gen','Feb','Mar','Apr','Mag','Giu','Lug','Ago','Set','Ott','Nov','Dic'];
+new Chart(document.getElementById('c3'),{type:'line',data:{labels:mesi,datasets:[{label:'Indice domanda B2B',data:[65,70,85,80,90,75,60,40,105,120,125,130],borderColor:'#1B4F8A',backgroundColor:'rgba(27,79,138,.08)',tension:.4,fill:true,pointBackgroundColor:'#1B4F8A',pointRadius:4,pointHoverRadius:6,borderWidth:2.5}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{...TT,callbacks:{label:c=>` Indice: ${c.parsed.y} (100 = media)`}}},scales:{x:{grid:{display:false},ticks:{font:{family:"'Plus Jakarta Sans'",size:11}}},y:{grid:{color:'rgba(0,0,0,.05)'},ticks:{font:{family:"'Plus Jakarta Sans'",size:11},color:'#7A7468'},min:30,max:140}}}});
+
+/* SETTORI */
+const settori=['Commercio & Retail','Manifattura & Industria','Servizi Professionali','Ristorazione & Food','Costruzioni & Edilizia','Sanità','ICT & Digitale','Istruzione & PA'];
+new Chart(document.getElementById('c4'),{type:'bar',data:{labels:settori,datasets:[{label:'Quota acquisti B2B %',data:[19,17,16,13,11,8,8,8],backgroundColor:['#1B4F8A','#C4780A','#A83520','#1A6462','#5A3A8A','#3E6E3E','#8A5A1A','#6A3A7A'],borderRadius:5,borderSkipped:false,barThickness:28}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{...TT,callbacks:{label:c=>` ${c.parsed.y}% degli acquisti di stampa B2B`}}},scales:{x:{grid:{display:false},ticks:{font:{family:"'Plus Jakarta Sans'",size:11},color:'#18160F'}},y:{grid:{color:'rgba(0,0,0,.05)'},ticks:{font:{family:"'Plus Jakarta Sans'",size:11},callback:v=>v+'%',color:'#7A7468'}}}}});
+
+/* PRODOTTO PER SETTORE */
+new Chart(document.getElementById('c5'),{type:'bar',data:{labels:['Commercio','Manifattura','Servizi Prof.','Ristorazione','Costruzioni','Sanità','ICT','Istruzione'],datasets:[{label:'Volantini/Brochure',data:[35,10,20,25,5,10,5,15],backgroundColor:'#1A6462',borderRadius:3,borderSkipped:false},{label:'Gadget/Drinkware',data:[15,30,25,15,10,20,35,20],backgroundColor:'#C4780A',borderRadius:3,borderSkipped:false},{label:'Abbigliamento con logo',data:[20,35,15,40,50,25,20,25],backgroundColor:'#1B4F8A',borderRadius:3,borderSkipped:false},{label:'Segnaletica/Banner',data:[30,25,40,20,35,45,40,40],backgroundColor:'#5A3A8A',borderRadius:3,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{font:{family:"'Plus Jakarta Sans'",size:11},padding:14,boxWidth:11,usePointStyle:true}},tooltip:{...TT}},scales:{x:{grid:{display:false},ticks:{font:{family:"'Plus Jakarta Sans'",size:11}}},y:{grid:{color:'rgba(0,0,0,.05)'},ticks:{font:{family:"'Plus Jakarta Sans'",size:11},callback:v=>v+'%'},max:100,stacked:false}}}});
+
+/* SPESA PER DIMENSIONE */
+new Chart(document.getElementById('c6'),{type:'doughnut',data:{labels:['Microimprese 0–9 add. (18%)','Piccole 10–49 add. (22%)','Medie 50–249 add. (32%)','Grandi 250+ add. (28%)'],datasets:[{data:[18,22,32,28],backgroundColor:['#DDD6CC','#1B4F8A','#C4780A','#A83520'],borderColor:'#FDFAF5',borderWidth:3}]},options:{responsive:true,maintainAspectRatio:false,cutout:'60%',plugins:{legend:{position:'right',labels:{font:{family:"'Plus Jakarta Sans'",size:11},color:'#18160F',padding:8,boxWidth:11,usePointStyle:true}},tooltip:{...TT,callbacks:{label:c=>` ${c.parsed}% della spesa totale B2B`}}}}});
+
+/* CANALE D'ACQUISTO */
+new Chart(document.getElementById('c7'),{type:'bar',data:{labels:['Micro (0–9)','Piccola (10–49)','Media (50–249)','Grande (250+)'],datasets:[{label:'Online diretto',data:[70,55,35,15],backgroundColor:'#1B4F8A',borderRadius:3,borderSkipped:false},{label:'Rivenditore/Agente',data:[15,25,30,20],backgroundColor:'#C4780A',borderRadius:3,borderSkipped:false},{label:'Fornitore storico/contratto',data:[10,15,25,55],backgroundColor:'#A83520',borderRadius:3,borderSkipped:false},{label:'Gara d\'appalto',data:[5,5,10,10],backgroundColor:'#5A3A8A',borderRadius:3,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{font:{family:"'Plus Jakarta Sans'",size:11},padding:12,boxWidth:11,usePointStyle:true}},tooltip:{...TT}},scales:{x:{grid:{display:false},ticks:{font:{family:"'Plus Jakarta Sans'",size:11}}},y:{grid:{color:'rgba(0,0,0,.05)'},ticks:{font:{family:"'Plus Jakarta Sans'",size:11},callback:v=>v+'%'},max:100}}}});
+
+/* GEO LOMBARDIA */
+const provLomb=['Milano','Brescia','Bergamo','Monza B.','Varese','Como','Mantova','Cremona','Lecco','Pavia','Lodi','Sondrio'];
+new Chart(document.getElementById('c8'),{type:'bar',data:{labels:provLomb,datasets:[{label:'Domanda B2B stimata (M€)',data:[380,95,82,40,36,20,16,14,13,12,10,7],backgroundColor:provLomb.map(p=>p==='Milano'?'#1B4F8A':p==='Brescia'?'#C4780A':p==='Bergamo'?'#1A6462':'#DDD6CC'),borderRadius:4,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{...TT,callbacks:{label:c=>` ~€${c.parsed.y}M domanda B2B stampa stimata`}}},scales:{x:{grid:{display:false},ticks:{font:{family:"'Plus Jakarta Sans'",size:11}}},y:{grid:{color:'rgba(0,0,0,.05)'},ticks:{font:{family:"'Plus Jakarta Sans'",size:11},callback:v=>'€'+v+'M',color:'#7A7468'}}}}});
+
+/* PRODOTTO TOP PER PROVINCIA */
+new Chart(document.getElementById('c9'),{type:'bar',data:{labels:['Milano','Brescia','Bergamo','Monza B.','Varese','Como','Mantova'],datasets:[{label:'Biglietti da visita/Branding',data:[35,15,12,20,15,18,12],backgroundColor:'#1B4F8A',borderRadius:3,borderSkipped:false},{label:'Gadget/Abbigliamento promo',data:[20,20,25,15,20,15,20],backgroundColor:'#C4780A',borderRadius:3,borderSkipped:false},{label:'Etichette/Packaging industria',data:[15,40,38,25,30,30,40],backgroundColor:'#1A6462',borderRadius:3,borderSkipped:false},{label:'Segnaletica/Banner/Cantiere',data:[30,25,25,40,35,37,28],backgroundColor:'#A83520',borderRadius:3,borderSkipped:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{font:{family:"'Plus Jakarta Sans'",size:11},padding:12,boxWidth:11,usePointStyle:true}},tooltip:{...TT}},scales:{x:{grid:{display:false},ticks:{font:{family:"'Plus Jakarta Sans'",size:11}}},y:{grid:{color:'rgba(0,0,0,.05)'},ticks:{font:{family:"'Plus Jakarta Sans'",size:11},callback:v=>v+'%'},max:100}}}});
+
+/* DRIVER DECISIONALI */
+new Chart(document.getElementById('c10'),{type:'bar',data:{labels:['Prezzo competitivo','Velocità consegna','Qualità stampa','Fornitore unico (tutto)','Personalizzazione online','Sostenibilità prodotto','Assistenza grafica','Minimo d\'ordine basso'],datasets:[{label:'Importanza %',data:[88,82,75,68,62,45,55,50],backgroundColor:['#A83520','#1B4F8A','#C4780A','#5A3A8A','#1A6462','#3E6E3E','#8A5A1A','#6A3A7A'],borderRadius:5,borderSkipped:false,barThickness:24}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{...TT,callbacks:{label:c=>` ${c.parsed.x}% lo considera prioritario`}}},scales:{x:{grid:{color:'rgba(0,0,0,.05)'},ticks:{font:{family:"'Plus Jakarta Sans'",size:11},callback:v=>v+'%',color:'#7A7468'},max:100},y:{grid:{display:false},ticks:{font:{family:"'Plus Jakarta Sans'",size:12},color:'#18160F'}}}}});
+
+/* OCCASIONI D'ACQUISTO */
+new Chart(document.getElementById('c11'),{type:'bar',data:{labels:['Fiere ed eventi','Regali di Natale / fine anno','Lancio prodotto/servizio','Onboarding dipendenti','Inaugurazione sede','Campagna marketing locale','Rinnovo brand/rebranding','Sponsorizzazione sportiva'],datasets:[{label:'% aziende che ordinano per questa occasione',data:[78,72,65,48,42,55,38,32],backgroundColor:'#1B4F8A',borderRadius:5,borderSkipped:false,barThickness:24}]},options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{...TT,callbacks:{label:c=>` ${c.parsed.x}% delle aziende ordina per questa occasione`}}},scales:{x:{grid:{color:'rgba(0,0,0,.05)'},ticks:{font:{family:"'Plus Jakarta Sans'",size:11},callback:v=>v+'%',color:'#7A7468'},max:100},y:{grid:{display:false},ticks:{font:{family:"'Plus Jakarta Sans'",size:12},color:'#18160F'}}}}});
+</script>
+</body>
+</html>
